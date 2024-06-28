@@ -232,12 +232,12 @@ mysqli_close($conn);
                                 <div class="modal-body">
                                     <form method="post">
                                         <div class="left">
-                                            <label for="statusSelect">Select Status :</label>
+                                            <label for="statusSelect" style="margin-bottom: 1.5em">Select Status :</label>
                                             <label for="remarkText">Remark or Message :</label>
                                         </div>
 
                                         <div class="right">
-                                            <select class="form-control" id="statusSelect" name="status">
+                                            <select class="form-control" id="statusSelect" name="status" style="margin-bottom: 1.5em">
                                                 <option value="In Process" name="inProcess">In Process</option>
                                                 <option value="Closed" name="closed">Closed</option>
                                             </select>
