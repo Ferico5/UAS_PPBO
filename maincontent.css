@@ -1,0 +1,20 @@
+.maincontent {
+    width: 100%;
+    margin-left: 15%;
+    overflow-y: auto;
+    height: calc(100vh - 3.5em);
+}
+
+#userlogin {
+    margin: 1.5em 0 0 1em;
+    font-size: 1.3em;
+}
+
+hr {
+    background-color: #eee;
+    border: 0 none;
+    color: #eee;
+    height: 1px;
+    margin: .8em auto;
+    width: 96%;
+}

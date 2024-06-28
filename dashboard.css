@@ -1,0 +1,157 @@
+.containermain {
+    width: 100%;
+    height: 20em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.containersub {
+    width: 29%;
+    margin: 1em 1.3em;
+    margin-bottom: 1em;
+}
+
+.contentsub {
+    height: 36%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* for dashboard admin */
+.admincontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.admincontent .total {
+    font-size: 1.5em;
+    margin: 1.3em 0 .8em;
+}
+
+.admincontent p {
+    color: #FCFDFD;
+}
+/* end of for dashboard admin */
+
+.fullinfo {
+    background-color: #F8F5F0;
+    padding: .7em;
+    font-size: .8em;
+    border: 1px solid #E9E3DA;
+}
+
+.fullinfo a {
+    text-decoration: none;
+    color: #000;
+}
+
+.fullinfo p:hover {
+    cursor: pointer;
+}
+
+.contentsub p {
+    color: #FCFDFD;
+}
+
+/* start of for dashboard user */
+#my_profile {
+    background-color: #325D88; 
+}
+
+#my_room {
+    background-color: #93C54B;
+}
+/* end of for dashboard user */
+
+/* start of for dashboard admin */
+#total_students {
+    background-color: #a7518e;
+}
+
+#total_rooms, #closed_complaints {
+    background-color: #93C54B;
+}
+
+#registered_complaints, #total_feedbacks {
+    background-color: #29ABE0;
+}
+
+#new_complaints {
+    background-color: #D9534F;
+}
+
+#in_process_complaints {
+    background-color: #F47C3C;
+}
+/* end of for dashboard admin */
+
+/* Responsive Design */
+@media (min-width: 900px) and (max-width: 1120px) {
+    .iconnavbar {
+        height: 20em;
+    }
+
+    .textnavbar {
+        height: 20.7em;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 990px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .navbar {
+        order: 1;
+        width: 100%;
+        height: 10%;
+    }
+
+    #none, .iconnavbar svg {
+        display: none;
+    }
+
+    .textnavbar {
+        width: 100%;
+        height: 3.7em;
+        margin-left: -1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding: 0 1em;
+        box-sizing: border-box;
+    }
+
+    .textnavbar p {
+        margin-right: 1em;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .maincontent {
+        order: 2;
+    }
+
+    .containersub {
+        width: 80%;
+        height: 100%;
+    }
+
+    #top_for_responsive {
+        margin-top: -10em;
+    }
+
+    .contentsub p {
+        font-size: 3em;
+    }
+
+    .maincontent {
+        order: 2;
+    }
+}
