@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json');
+header('Content-Type: application/json'); // memastikan bahwa respon yang dikirim adalah dalam format JSON.
 
 include 'connectdatabase.php';
 
@@ -31,7 +31,7 @@ if (isset($_GET['room_no'])) {
 
     $fetcher = new RoomDataFetcher($conn);
     $result = $fetcher->getRoomData($roomNo);
-    echo json_encode($result);
+    echo json_encode($result); // cetak hasil dalam format json
 } else {
     echo json_encode(['success' => false, 'message' => 'Room number not provided']);
 }

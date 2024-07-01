@@ -55,7 +55,7 @@ class ProfileAdmin {
 
         if ($updateResult) {
             session_destroy();
-            header("Location: adminlogin.php");
+            echo '<script>alert("Profile successfully updated"); window.location.href = "adminlogin.php";</script>';
             exit();
         } else {
             die("Update failed: " . $this->conn->error);

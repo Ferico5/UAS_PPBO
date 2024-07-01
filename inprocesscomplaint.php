@@ -32,7 +32,7 @@ class InProcessComplaint {
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             return $row['username'];
-        }   
+        }
     }
 
     public function getInProcessComplaints() {
@@ -56,9 +56,9 @@ $inProcessComplaint = new InProcessComplaint($conn);
 // ambil admin email dari sesi
 $email = $_SESSION["email"];
 
-$fullName = $closedComplaint->getAdminName($email);
+$fullName = $inProcessComplaint->getAdminName($email);
 
-$result = $closedComplaint->getClosedComplaints();
+$result = $inProcessComplaint->getInProcessComplaints();
 
 mysqli_close($conn);
 ?>

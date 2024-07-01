@@ -46,7 +46,7 @@ class PasswordHandler {
 
             if ($updateResult) {
                 session_destroy();
-                header("Location: index.php");
+                echo '<script>alert("Password successfully updated"); window.location.href = "index.php";</script>';
                 exit();
             } else {
                 die("Update failed: " . mysqli_error($this->conn));
@@ -68,8 +68,6 @@ class PasswordHandler {
 
         $row = mysqli_fetch_assoc($result);
         $fullName = $row['full_name'];
-
-        mysqli_free_result($result);
 
         return $fullName;
     }

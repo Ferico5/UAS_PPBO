@@ -66,7 +66,7 @@ $result = $profileUser->getUserProfile();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newContactNo = $_POST["contact_no"];
     if ($profileUser->updateContactNo($newContactNo)) {
-        header("Location: dashboarduser.php");
+        echo '<script>alert("Profile successfully updated"); window.location.href = "dashboarduser.php";</script>';
         exit();
     }
 }

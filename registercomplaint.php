@@ -57,15 +57,14 @@ class ComplaintRegistration {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $complaint_type = $_POST['complaint_type'];
             $explain_complaint = $_POST['explain_complaint'];
-            $file_name = $_POST['file_name'];
-            $complaint_status = 'unprocessed';
+            $complaint_status = 'Unprocessed';
 
             $timezone = new DateTimeZone('Asia/Jakarta');
             $time = new DateTime('now', $timezone);
             $complaint_date = $time->format('Y-m-d H:i:s');
 
-            $sql = "INSERT INTO register_complaint (registration_no, room_no, complaint_type, explain_complaint, file_name, complaint_status, complaint_date) 
-                    VALUES ('$this->registrationNo', '$this->roomNo', '$complaint_type', '$explain_complaint', '$file_name', '$complaint_status', '$complaint_date')";
+            $sql = "INSERT INTO register_complaint (registration_no, room_no, complaint_type, explain_complaint, complaint_status, complaint_date) 
+                    VALUES ('$this->registrationNo', '$this->roomNo', '$complaint_type', '$explain_complaint', '$complaint_status', '$complaint_date')";
             if (mysqli_query($this->conn, $sql)) {
                 header("Location: mycomplaint.php");
                 exit();
@@ -168,17 +167,16 @@ mysqli_close($conn);
                         <div class="fillform">
                             <p>Complaint Type: 
                                 <select name="complaint_type" id="complaint_type" required>
-                                    <option value="food related" name="food_related">Food Related</option>
-                                    <option value="room related" name="room_related">Room Related</option>
-                                    <option value="fee related" name="fee_related">Fee Related</option>
-                                    <option value="electrical" name="electrical">Electrical</option>
-                                    <option value="plumbing" name="plumbing">Plumbing</option>
-                                    <option value="discipline" name="discipline">Discipline</option>
-                                    <option value="other" name="other">Other</option>
+                                    <option value="Food related" name="food_related">Food Related</option>
+                                    <option value="Room related" name="room_related">Room Related</option>
+                                    <option value="Fee related" name="fee_related">Fee Related</option>
+                                    <option value="Electrical" name="electrical">Electrical</option>
+                                    <option value="Plumbing" name="plumbing">Plumbing</option>
+                                    <option value="Discipline" name="discipline">Discipline</option>
+                                    <option value="Other" name="other">Other</option>
                                 </select>
                             </p>
-                            <p>Explain the Complaint: <input type="textarea" name="explain_complaint" id="explain_complaint"></p>
-                            <p>File (if any): <input type="file" name="file_name" id="file_name" accept="image/*, .pdf"></p>
+                            <p>Explain the Complaint: <input type="textarea" name="explain_complaint" id="explain_complaint" required></p>
                             <div class="buttonform">
                                 <button type="reset"><a href="dashboarduser.php">Cancel</a></button>
                                 <button type="submit" id="submit">Register</button>

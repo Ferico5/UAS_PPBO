@@ -29,7 +29,6 @@ class ComplaintActionAdmin {
                     register_complaint.registration_no, 
                     register_complaint.complaint_date,
                     register_complaint.complaint_type,
-                    register_complaint.file_name,
                     register_complaint.explain_complaint,
                     register_complaint.complaint_status,
                     complaint_action.complaint_remark,
@@ -64,6 +63,8 @@ class ComplaintActionAdmin {
     }
 
     public function fetchAdminName($getEmail) {
+        $getEmail = mysqli_real_escape_string($this->conn, $getEmail);
+        
         $query = "SELECT username FROM admin_login WHERE admin_email = '$getEmail'";
         $result = mysqli_query($this->conn, $query);
 
@@ -191,16 +192,12 @@ mysqli_close($conn);
                                     <tr>
                                         <td class="bold">Complaint Type :</td>
                                         <td><?= $row["complaint_type"]; ?></td>
-                                        <td class="bold">File (if any) :</td>
-                                        <td><?= $row["file_name"]; ?></td>
+                                        <td class="bold">Complaint Status :</td>
+                                        <td colspan="2"><?= $row["complaint_status"]; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="bold">Complaint Details :</td>
                                         <td colspan="3"><?= $row["explain_complaint"]; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold">Complaint Status :</td>
-                                        <td colspan="3"><?= $row["complaint_status"]; ?></td>
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="blue bold center">Complaint History</td>
@@ -232,12 +229,12 @@ mysqli_close($conn);
                                 <div class="modal-body">
                                     <form method="post">
                                         <div class="left">
-                                            <label for="statusSelect" style="margin-bottom: 1.5em">Select Status :</label>
+                                            <label for="statusSelect" class="margin-bottom">Select Status :</label>
                                             <label for="remarkText">Remark or Message :</label>
                                         </div>
 
                                         <div class="right">
-                                            <select class="form-control" id="statusSelect" name="status" style="margin-bottom: 1.5em">
+                                            <select class="form-control" id="statusSelect" name="status">
                                                 <option value="In Process" name="inProcess">In Process</option>
                                                 <option value="Closed" name="closed">Closed</option>
                                             </select>

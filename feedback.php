@@ -37,7 +37,7 @@ class SubmitFeedback {
             $sql = "INSERT INTO feedback (registration_no, accessibility_to_warden, accessibility_to_hostel_committee_members, redressal_of_problems, room, mess, hostel_surroundings, overall_rating, feedback_message) VALUES ('$this->registrationNo', '$accessibility_to_warden', '$accessibility_to_hostel_committee_members', '$redressal_of_problems', '$room', '$mess', '$hostel_surroundings', '$overall_rating', '$feedback_message')";
     
             if (mysqli_query($this->conn, $sql)) {
-                header("Location: dashboarduser.php");
+                echo '<script>alert("Thank you for the feedback"); window.location.href = "dashboarduser.php";</script>';
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($this->conn);
             }

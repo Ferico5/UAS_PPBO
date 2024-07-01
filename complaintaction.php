@@ -59,7 +59,6 @@ class ComplaintAction {
                                                 register_complaint.registration_no, 
                                                 register_complaint.complaint_date,
                                                 register_complaint.complaint_type,
-                                                register_complaint.file_name,
                                                 register_complaint.explain_complaint,
                                                 register_complaint.complaint_status,
                                                 complaint_action.complaint_remark,
@@ -191,16 +190,12 @@ mysqli_close($conn);
                                 <tr>
                                     <td class="bold">Complaint Type :</td>
                                     <td><?= $row["complaint_type"]; ?></td>
-                                    <td class="bold">File (if any) :</td>
-                                    <td><?= $row["file_name"]; ?></td>
+                                    <td class="bold">Complaint Status :</td>
+                                    <td colspan="2"><?= $row["complaint_status"]; ?></td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Complaint Details :</td>
                                     <td colspan="3"><?= $row["explain_complaint"]; ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="bold">Complaint Status :</td>
-                                    <td colspan="3"><?= $row["complaint_status"]; ?></td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="blue bold center">Complaint History</td>

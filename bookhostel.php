@@ -235,8 +235,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <p>Fees Per Month: <input type="text" name="fees_per_month" id="fees_per_month" readonly></p>
                         <p>Food Status: 
                             <select name="food_status" id="food_status">
-                                <option value="without_food" name="without_food">Without Food</option>
-                                <option value="with_food" name="with_food">With Food (Rp. 350,000 Per Month Extra)</option>
+                                <option value="Without Food" name="without_food">Without Food</option>
+                                <option value="With Food" name="with_food">With Food (Rp. 350,000 Per Month Extra)</option>
                             </select>
                         </p>
                         <p>Stay From: <input type="date" name="stay_from" id="stayFrom" required></p>

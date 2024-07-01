@@ -34,11 +34,18 @@ class AddAdmin {
     }
 
     public function addAdmin($admin_id, $username, $admin_email, $password) {
-        $sql = "INSERT INTO admin_login (admin_id, username, admin_email, password) VALUES ('$admin_id', '$username', '$admin_email', '$password')";
+        $admin_id = mysqli_real_escape_string($this->conn, $admin_id);
+        $username = mysqli_real_escape_string($this->conn, $username);
+        $admin_email = mysqli_real_escape_string($this->conn, $admin_email);
+        $password = mysqli_real_escape_string($this->conn, $password);
+
+        $sql = "INSERT INTO admin_login VALUES ('$admin_id', '$admin_email', '$username', '$password', 'admin')";
         return mysqli_query($this->conn, $sql);
     }
 
     public function getAdminName($getEmail) {
+        $getEmail = mysqli_real_escape_string($this->conn, $getEmail);
+
         $queryName = mysqli_query($this->conn, "SELECT username FROM admin_login WHERE admin_email = '$getEmail'");
         if (!$queryName) {
             die("Query failed: " . mysqli_error($this->conn));
@@ -61,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Memanggil fungsi untuk menambah admin baru
     if ($addAdmin->addAdmin($admin_id, $username, $admin_email, $password)) {
-        header("Location: dashboardadmin.php");
+        echo '<script>alert("New admin successfully added"); window.location.href = "dashboardadmin.php";</script>';
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

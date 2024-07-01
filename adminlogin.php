@@ -10,6 +10,9 @@ class AdminLogin {
     }
 
     public function loginAdmin($email, $password) {
+        $email = mysqli_real_escape_string($this->conn, $email);
+        $password = mysqli_real_escape_string($this->conn, $password);
+
         $sql = "SELECT * FROM admin_login WHERE admin_email = '$email' AND password = '$password'";
         $result = mysqli_query($this->conn, $sql);
 

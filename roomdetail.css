@@ -114,12 +114,20 @@ table button:hover {
     align-items: end;
 }
 
+.margin-bottom {
+    margin-bottom: 1.35em
+}
+
 .right {
     display: flex;
     flex-direction: column;
     height: 60%;
     justify-content: space-around;
     padding-left: 1em;
+}
+
+.right select {
+    margin-bottom: 1.5em
 }
 
 .right input {

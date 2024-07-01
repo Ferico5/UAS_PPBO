@@ -119,7 +119,7 @@ mysqli_close($conn);
 <body>
     <!-- header -->
     <header>
-    <a href="dashboardadmin.php">Admin Unpri Hostel</a>
+    <a href="dashboardadmin.php">Hostel Management System</a>
         <div class="user-info">
             <span><?php echo htmlspecialchars($fullName); ?></span>
             <a href="logout.php">Logout</a>

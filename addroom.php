@@ -27,13 +27,18 @@ class AddRoom {
     }
 
     public function addRoom($select_seater, $room_no, $fees_per_month) {
-        $sql = "INSERT INTO room_info (room_no, seater, fees_per_month, remaining_seater) 
-                VALUES ('$room_no', '$select_seater', '$fees_per_month', '$select_seater')";
+        $select_seater = mysqli_real_escape_string($this->conn, $select_seater);
+        $room_no = mysqli_real_escape_string($this->conn, $room_no);
+        $fees_per_month = mysqli_real_escape_string($this->conn, $fees_per_month);
+        
+        $sql = "INSERT INTO room_info VALUES ('$room_no', '$select_seater', '$fees_per_month', '$select_seater')";
 
         return mysqli_query($this->conn, $sql);
     }
 
     public function getAdminName($getEmail) {
+        $getEmail = mysqli_real_escape_string($this->conn, $getEmail);
+
         $queryName = mysqli_query($this->conn, "SELECT username FROM admin_login WHERE admin_email = '$getEmail'");
         if (!$queryName) {
             die("Query failed: " . mysqli_error($this->conn));
@@ -52,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Memanggil fungsi untuk menambah room baru
     if ($addRoom->addRoom($select_seater, $room_no, $fees_per_month)) {
-        header('Location: dashboardadmin.php');
+        echo '<script>alert("Room successfully added"); window.location.href = "dashboardadmin.php";</script>';
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }

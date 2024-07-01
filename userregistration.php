@@ -15,9 +15,16 @@ class UserRegistration {
         return $row['max_registration_no'] + 1;
     }
 
-    public function registerUser($registrationNo, $fullName, $gender, $contactNo, $email, $password, $confirmPassword) {
-        $sql = "INSERT INTO registration (registration_no, full_name, gender, contact_no, email, password, confirm_password) 
-                VALUES ('$registrationNo', '$fullName', '$gender', '$contactNo', '$email', '$password', '$confirmPassword')";
+    public function registerUser($registrationNo, $fullName, $gender, $contactNo, $email, $password) {
+        $registrationNo = mysqli_real_escape_string($this->conn, $registrationNo);
+        $fullName = mysqli_real_escape_string($this->conn, $fullName);
+        $gender = mysqli_real_escape_string($this->conn, $gender);
+        $contactNo = mysqli_real_escape_string($this->conn, $contactNo);
+        $email = mysqli_real_escape_string($this->conn, $email);
+        $password = mysqli_real_escape_string($this->conn, $password);
+
+        $sql = "INSERT INTO registration (registration_no, full_name, gender, contact_no, email, password) 
+                VALUES ('$registrationNo', '$fullName', '$gender', '$contactNo', '$email', '$password')";
         
         return mysqli_query($this->conn, $sql);
     }
@@ -34,9 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactNo = $_POST['contactNo'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
 
-    if ($userRegistration->registerUser($registrationNo, $fullName, $gender, $contactNo, $email, $password, $confirmPassword)) {
+    if ($userRegistration->registerUser($registrationNo, $fullName, $gender, $contactNo, $email, $password)) {
         header('Location: index.php');
     } else {
         echo '<script>alert("Email is already taken. Please use another email")</script>';
