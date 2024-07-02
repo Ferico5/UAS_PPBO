@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const foodStatus = document.getElementById('food_status');
     const foodFee = document.getElementById('food_fee');
 
-    if (foodStatus.innerText == "without_food") {
+    if (foodStatus.innerText == "Without Food") {
         foodFee.innerText = 0;
-    } else if (foodStatus.innerText == "with_food") {
+    } else if (foodStatus.innerText == "With Food") {
         foodFee.innerText = 350000 * intDuration;
     }
 

@@ -21,6 +21,7 @@ $getEmail = $_SESSION["email"];
 
 class ProfileAdmin {
     private $conn;
+    public $storedPassword;
 
     public function __construct($conn) {
         $this->conn = $conn;
@@ -45,20 +46,42 @@ class ProfileAdmin {
         return $result->fetch_assoc();
     }
 
-    public function updateAdminProfile($email, $newUsername, $newAdminEmail) {
+    public function getCurrentPassword($email) {
+        $getEmail = $this->conn->real_escape_string($email);
+
+        $query = "SELECT password FROM admin_login WHERE admin_email = '$getEmail'";
+        $result = $this->conn->query($query);
+
+        if (!$result) {
+            die("Query failed: " . $this->conn->error);
+        }
+
+        $row = $result->fetch_assoc();
+        $this->storedPassword = $row['password'];
+
+        return $this->storedPassword;
+    }
+
+    public function updateAdminProfile($email, $newUsername, $newAdminEmail, $newPassword, $confirmNewPassword) {
         $getEmail = $this->conn->real_escape_string($email);
         $newUsername = $this->conn->real_escape_string($newUsername);
         $newAdminEmail = $this->conn->real_escape_string($newAdminEmail);
+        $newPassword = $this->conn->real_escape_string($newPassword);
+        $confirmNewPassword = $this->conn->real_escape_string($confirmNewPassword);
 
-        $updateQuery = "UPDATE admin_login SET username='$newUsername', admin_email='$newAdminEmail' WHERE admin_email='$getEmail'";
-        $updateResult = $this->conn->query($updateQuery);
+        if ($newPassword === $confirmNewPassword) {
+            $updateQuery = "UPDATE admin_login SET username='$newUsername', admin_email='$newAdminEmail', password='$newPassword' WHERE admin_email='$getEmail'";
+            $updateResult = $this->conn->query($updateQuery);
 
-        if ($updateResult) {
-            session_destroy();
-            echo '<script>alert("Profile successfully updated"); window.location.href = "adminlogin.php";</script>';
-            exit();
+            if ($updateResult) {
+                session_destroy();
+                echo '<script>alert("Profile successfully updated"); window.location.href = "adminlogin.php";</script>';
+                exit();
+            } else {
+                die("Update failed: " . $this->conn->error);
+            }
         } else {
-            die("Update failed: " . $this->conn->error);
+            echo "<script>alert('New password and confirm new password do not match!');</script>";
         }
     }
 
@@ -73,14 +96,21 @@ class ProfileAdmin {
 }
 
 $profileAdmin = new ProfileAdmin($conn);
-
 $result = $profileAdmin->getAdminProfile($getEmail);
+$storedPassword = $profileAdmin->getCurrentPassword($getEmail);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newUsername = $_POST["username"];
     $newAdminEmail = $_POST["admin_email"];
+    $currentPassword = $_POST["current_password"];
+    $newPassword = $_POST["new_password"];
+    $confirmNewPassword = $_POST["confirm_new_password"];
 
-    $profileAdmin->updateAdminProfile($getEmail, $newUsername, $newAdminEmail);
+    if ($currentPassword === $storedPassword) {
+        $profileAdmin->updateAdminProfile($getEmail, $newUsername, $newAdminEmail, $newPassword, $confirmNewPassword);
+    } else {
+        echo "<script>alert('Current password does not match!');</script>";
+    }
 }
 
 $fullName = $profileAdmin->getAdminName($getEmail);
@@ -165,6 +195,9 @@ mysqli_close($conn);
                             <p>Admin Id : <input type="text" name="admin_id" id="admin_id" value="<?php echo htmlspecialchars($result['admin_id']); ?>" readonly></p>
                             <p>Username: <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($result['username']); ?>"></p>
                             <p>Admin Email: <input type="email" name="admin_email" id="admin_email" value="<?php echo htmlspecialchars($result['admin_email']); ?>"></p>
+                            <p>Current Password: <input type="password" name="current_password" id="current_password" required></p>
+                            <p>New Password: <input type="password" name="new_password" id="new_password" required></p>
+                            <p>Confirm New Password: <input type="password" name="confirm_new_password" id="confirm_new_password" required></p>
 
                         <div class="buttonform">
                             <button type="reset"><a href="dashboardadmin.php">Cancel</a></button>

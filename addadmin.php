@@ -39,6 +39,13 @@ class AddAdmin {
         $admin_email = mysqli_real_escape_string($this->conn, $admin_email);
         $password = mysqli_real_escape_string($this->conn, $password);
 
+        // periksa apakah email sudah dipakai orang lain
+        $checkQuery = mysqli_query($this->conn, "SELECT admin_id FROM admin_login WHERE admin_email = '$admin_email'");
+        if (mysqli_num_rows($checkQuery) > 0) {
+            echo '<script>alert("Email sudah digunakan. Silakan gunakan email lain.");</script>';
+            return false;
+        }
+
         $sql = "INSERT INTO admin_login VALUES ('$admin_id', '$admin_email', '$username', '$password', 'admin')";
         return mysqli_query($this->conn, $sql);
     }
@@ -69,8 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Memanggil fungsi untuk menambah admin baru
     if ($addAdmin->addAdmin($admin_id, $username, $admin_email, $password)) {
         echo '<script>alert("New admin successfully added"); window.location.href = "dashboardadmin.php";</script>';
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
 

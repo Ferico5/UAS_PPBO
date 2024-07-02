@@ -15,6 +15,7 @@ class HostelBooking {
     private $userData;
     private $rooms;
     private $fullName;
+    private $checkBooking;
 
     public function __construct($conn, $email) {
         $this->conn = $conn;
@@ -22,6 +23,7 @@ class HostelBooking {
         $this->userData = $this->fetchUserData();
         $this->fullName = $this->fetchUserName();
         $this->rooms = $this->fetchAvailableRooms();
+        $this->checkBooking = $this->checkActiveBooking();
     }
 
     private function fetchUserData() {
@@ -64,6 +66,37 @@ class HostelBooking {
 
     public function getRooms() {
         return $this->rooms;
+    }
+
+    private function checkActiveBooking() {
+        $registration_no = $this->userData['registration_no'];
+        $query = "SELECT 
+                    stay_from, 
+                    duration 
+                    FROM book_room 
+                    WHERE registration_no = '$registration_no' 
+                    ORDER BY apply_date DESC 
+                    LIMIT 1";
+        $result = mysqli_query($this->conn, $query);
+
+        if (!$result) {
+            die("Query failed: " . mysqli_error($this->conn));
+        }
+
+        $booking = mysqli_fetch_assoc($result);
+
+        if ($booking) {
+            $stay_from = new DateTime($booking['stay_from']);
+            $duration = (int)$booking['duration'];
+            $stay_until = $stay_from->add(new DateInterval("P{$duration}M")); // P adalah periode atau interval, M adalah bulan(month), anggap saja durasi 3 bulan maka P3M artinya interval waktu selama 3 bulan
+            $now = new DateTime();
+
+            if ($now < $stay_until) {
+                echo '<script>alert("You already have an active booking. Please wait until your current booking period ends."); window.location.href = "dashboarduser.php"</script>';
+            }
+        }
+
+        return false;
     }
 
     public function bookRoom($postData) {

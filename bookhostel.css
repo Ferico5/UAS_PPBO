@@ -39,10 +39,16 @@ form h3 {
     padding: .4em;
 }
 
+.fillform input[readonly], .fillform select[readonly] {
+    background-color: #F0F0F0;
+    color: #666;
+    border: 1px solid #ccc;
+}
+
 #error-message {
     display: none;
     margin-top: -1em;
-    margin-left: 25.5em;
+    margin-left: 28.5em;
     color: red;
     width: 12.8em;
 }

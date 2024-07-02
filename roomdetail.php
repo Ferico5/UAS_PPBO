@@ -197,13 +197,13 @@ mysqli_close($conn);
                                 </tr>
                                 <tr>
                                     <td class="bold">Hostel Fee :</td>
-                                    <td id="hostel_fee">1000000</td>
+                                    <td id="hostel_fee"></td>
                                     <td class="bold">Food Fee :</td>
-                                    <td colspan="3" id="food_fee">100000</td>
+                                    <td colspan="3" id="food_fee"></td>
                                 </tr>
                                 <tr>
                                     <td class="bold">Total Fee :</td>
-                                    <td colspan="5" id="total_fee">2350000</td>
+                                    <td colspan="5" id="total_fee"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="6" class="red">Personal Info</td>

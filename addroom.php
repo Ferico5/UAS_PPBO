@@ -30,6 +30,14 @@ class AddRoom {
         $select_seater = mysqli_real_escape_string($this->conn, $select_seater);
         $room_no = mysqli_real_escape_string($this->conn, $room_no);
         $fees_per_month = mysqli_real_escape_string($this->conn, $fees_per_month);
+
+         // Check if room_no already exists
+         $checkRoomQuery = "SELECT * FROM room_info WHERE room_no = '$room_no'";
+         $result = mysqli_query($this->conn, $checkRoomQuery);
+         
+         if (mysqli_num_rows($result) > 0) {
+             return false; // Room number already exists
+         }
         
         $sql = "INSERT INTO room_info VALUES ('$room_no', '$select_seater', '$fees_per_month', '$select_seater')";
 
@@ -59,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($addRoom->addRoom($select_seater, $room_no, $fees_per_month)) {
         echo '<script>alert("Room successfully added"); window.location.href = "dashboardadmin.php";</script>';
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo '<script>alert("Room number already exists. Please enter a different room number.");</script>';
     }
 }
 
