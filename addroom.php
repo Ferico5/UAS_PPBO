@@ -31,12 +31,12 @@ class AddRoom {
         $room_no = mysqli_real_escape_string($this->conn, $room_no);
         $fees_per_month = mysqli_real_escape_string($this->conn, $fees_per_month);
 
-         // Check if room_no already exists
+         // periksa apakah room no sudah ada
          $checkRoomQuery = "SELECT * FROM room_info WHERE room_no = '$room_no'";
          $result = mysqli_query($this->conn, $checkRoomQuery);
          
          if (mysqli_num_rows($result) > 0) {
-             return false; // Room number already exists
+             return false; // room no sudah ada, maka return false
          }
         
         $sql = "INSERT INTO room_info VALUES ('$room_no', '$select_seater', '$fees_per_month', '$select_seater')";

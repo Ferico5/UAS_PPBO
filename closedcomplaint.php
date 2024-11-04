@@ -130,7 +130,7 @@ mysqli_close($conn);
         <!-- isi main content -->
         <div class="maincontent">
             <!-- teks untuk mengetahui tentang apa halaman tersebut -->
-            <p id="userlogin">New Complaints</p>
+            <p id="userlogin">Closed Complaints</p>
             <hr>
 
             <div class="container">

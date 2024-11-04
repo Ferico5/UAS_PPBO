@@ -22,12 +22,6 @@ class Database {
     public function getConnection() {
         return $this->conn;
     }
-
-    // public function __destruct() {
-    //     if ($this->conn) {
-    //         $this->conn->close();
-    //     }
-    // }
 }
 
 $db = new Database();

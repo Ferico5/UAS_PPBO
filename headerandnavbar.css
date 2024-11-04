@@ -108,16 +108,6 @@ header a {
 }
 
 /* Responsive */
-@media (min-width: 900px) and (max-width: 1120px) {
-    .iconnavbar {
-        height: 20em;
-    }
-
-    .textnavbar {
-        height: 20.7em;
-    }
-}
-
 @media (min-width: 300px) and (max-width: 990px) {
     .main {
         flex-direction: column;
@@ -126,7 +116,7 @@ header a {
     .navbar {
         order: 1;
         width: 100%;
-        height: 10%;
+        height: 4.5em;
     }
 
     #none, .iconnavbar svg {
@@ -150,5 +140,11 @@ header a {
         margin-right: 1em;
         white-space: nowrap;
         flex-shrink: 0;
+    }
+}
+
+@media (min-height: 200px) and (max-width: 475px) {
+    body {
+        overflow-x: scroll;
     }
 }

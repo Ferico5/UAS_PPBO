@@ -18,3 +18,10 @@ hr {
     margin: .8em auto;
     width: 96%;
 }
+
+@media (min-width: 300px) and (max-width: 986px) {
+    .maincontent {
+        width: 98%;
+        margin-left: 0;
+    }
+}
